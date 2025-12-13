@@ -17,35 +17,47 @@
     * { box-sizing: border-box; }
 
     body{
-      font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
-      color: var(--text);
-      margin: 0;
+  font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  color: var(--text);
+  margin: 0;
 
-      /* 柔霧彩虹：一層極淡彩虹光暈 + 三顆柔霧光 + 乾淨底 */
-      background:
-        conic-gradient(
-          from 180deg at 50% 30%,
-          rgba(255, 214, 224, 0.20),
-          rgba(255, 244, 204, 0.18),
-          rgba(228, 255, 234, 0.18),
-          rgba(209, 234, 255, 0.20),
-          rgba(232, 214, 255, 0.18),
-          rgba(255, 214, 224, 0.20)
-        ),
-        radial-gradient(1200px 600px at 10% -10%, rgba(255, 214, 224, 0.35), transparent 60%),
-        radial-gradient(1000px 500px at 90% 10%, rgba(209, 234, 255, 0.35), transparent 60%),
-        radial-gradient(900px 500px at 50% 100%, rgba(228, 255, 234, 0.35), transparent 60%),
-        linear-gradient(180deg, #fafbfc 0%, #ffffff 50%, #f6f7f9 100%);
+  /* 柔霧彩虹：溫柔但看得見 */
+  background:
+    conic-gradient(
+      from 180deg at 50% 30%,
+      rgba(255, 214, 224, 0.26),  /* 粉霧 */
+      rgba(255, 244, 204, 0.24),  /* 奶油黃 */
+      rgba(228, 255, 234, 0.24),  /* 薄荷綠 */
+      rgba(209, 234, 255, 0.26),  /* 天空藍 */
+      rgba(232, 214, 255, 0.24),  /* 淡紫 */
+      rgba(255, 214, 224, 0.26)
+    ),
+    radial-gradient(
+      1200px 600px at 10% -10%,
+      rgba(255, 214, 224, 0.50),
+      transparent 60%
+    ),
+    radial-gradient(
+      1000px 500px at 90% 10%,
+      rgba(209, 234, 255, 0.45),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 50% 100%,
+      rgba(228, 255, 234, 0.45),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      #fafbfc 0%,
+      #ffffff 50%,
+      #f6f7f9 100%
+    );
 
-      background-attachment: fixed;
-      min-height: 100vh;
-    }
+  background-attachment: fixed;
+  min-height: 100vh;
+}
 
-    .wrap{
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 34px 20px 42px;
-    }
 
     h1{
       font-size: 26px;
