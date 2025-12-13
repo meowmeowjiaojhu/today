@@ -47,6 +47,17 @@
       font-size: 13px;
       color: #666;
     }
+button.btn {
+  border: none;
+  cursor: pointer;
+}
+
+button.ghost {
+  background: #fff;
+  color: #111;
+  border: 1px solid #111;
+}
+
   </style>
 </head>
 <body>
@@ -56,9 +67,12 @@
     <section class="card">
       <div id="msg" class="msg">載入中…</div>
 
-      <a class="btn" href="https://你的網站網址" target="_blank">
-        進入喵喵的網站
+      <a class="btn" href="https://linktr.ee/meowmeowjiaojhu" target="_blank">
+        來找喵喵
       </a>
+<button class="btn ghost" onclick="pickOne()">
+  換一句
+</button>
 
       <div class="hint">
         手機輕碰，遇見剛剛好的訊息。
@@ -67,22 +81,28 @@
   </main>
 
   <script>
-    const lines = [
-      "今天，先不用急著變得更好。\n先好好站在你的位置。",
-      "你不是迷路，只是走得比較深。",
-      "慢一點，不會讓你錯過屬於你的東西。",
-      "你已經很努力了，這不是你的錯。",
-      "如果累了，先回來抱抱自己。",
-      "有些答案，是在放鬆之後才會出現的。",
-      "你不需要向任何人證明，你值得被好好對待。",
-      "今天，只要做一件對自己溫柔的事。",
-      "你正在穿越一段過程，不是停滯。",
-      "你會走到的，只是現在還在路上。"
-    ];
+  const lines = [
+    "今天，先不用急著變得更好。\n先好好站在你的位置。",
+    "你不是迷路，只是走得比較深。",
+    "慢一點，不會讓你錯過屬於你的東西。",
+    "你已經很努力了，這不是你的錯。",
+    "如果累了，先回來抱抱自己。",
+    "有些答案，是在放鬆之後才會出現的。",
+    "你不需要向任何人證明，你值得被好好對待。",
+    "今天，只要做一件對自己溫柔的事。",
+    "你正在穿越一段過程，不是停滯。",
+    "你會走到的，只是現在還在路上。"
+  ];
 
-    const pick = Math.floor(Math.random() * lines.length);
-    document.getElementById("msg").textContent = lines[pick];
-  </script>
+  function pickOne() {
+    const i = Math.floor(Math.random() * lines.length);
+    document.getElementById("msg").textContent = lines[i];
+  }
+
+  // 頁面一打開，先抽一句
+  pickOne();
+</script>
+
 </body>
 </html>
 
