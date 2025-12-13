@@ -1,24 +1,25 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
+  <!-- ✅ 社群分享縮圖（OG） -->
   <meta property="og:title" content="今日指引｜喵喵教主">
-<meta property="og:description" content="今天也是美好的一天">
-<meta property="og:image" content="https://meowmeowjiaojhu.github.io/today/meowlogo.png">
-<meta property="og:url" content="https://meowmeowjiaojhu.github.io/today/">
-<meta property="og:type" content="website">
+  <meta property="og:description" content="今天也是美好的一天">
+  <meta property="og:image" content="https://meowmeowjiaojhu.github.io/today/meowlogo.png">
+  <meta property="og:url" content="https://meowmeowjiaojhu.github.io/today/">
+  <meta property="og:type" content="website">
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>今日指引</title>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BSEZT46Z9V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-BSEZT46Z9V');
-</script>
+  <!-- ✅ Google Analytics（GA4） -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BSEZT46Z9V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BSEZT46Z9V');
+  </script>
 
   <style>
     :root{
@@ -27,7 +28,6 @@
       --shadow: 0 18px 50px rgba(0,0,0,0.12);
       --radius: 22px;
     }
-
     *{ box-sizing: border-box; }
 
     /* 🌈 整個世界的背景 */
@@ -79,6 +79,20 @@
       overflow: hidden;
     }
 
+    /* 🐱 Logo 圖：圓形 + 去白底感 + 浮起來 */
+    .card-image{
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+
+      display: block;
+      margin: 0 auto 16px;
+
+      /* 浮起來：底下陰影 */
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
     /* ✨ 金粉邊框 */
     .card::before{
       content:"";
@@ -120,7 +134,7 @@
       pointer-events:none;
     }
 
-    /* 💬 指引文字 */
+    /* 💬 指引文字（+ 翻卡動畫會用到的屬性都放在這裡） */
     .msg{
       font-size: 20px;
       line-height: 1.8;
@@ -140,15 +154,34 @@
       text-align: center;
 
       box-shadow: inset 0 1px 2px rgba(255,255,255,0.6);
+
+      /* ✅ 翻卡需要的三行（放這裡，不重複） */
+      transform-origin: center;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
     }
 
-    /* 🔁 換一句 */
+    /* 🎴 翻卡：觸發 class */
+    .msg.flip{
+      animation: flipCard 520ms ease;
+    }
+
+    /* 🎴 翻卡關鍵影格：縮一下 → 翻 → 回來 */
+    @keyframes flipCard{
+      0%   { transform: rotateY(0deg)   scale(1);    opacity: 1; }
+      35%  { transform: rotateY(70deg)  scale(0.98); opacity: 0.35; }
+      60%  { transform: rotateY(110deg) scale(0.98); opacity: 0.35; }
+      100% { transform: rotateY(0deg)   scale(1);    opacity: 1; }
+    }
+
+    /* 🔁 按鈕通用 */
     button{
       font: inherit;
       cursor: pointer;
       border: none;
     }
 
+    /* 🔁 再抽一張 */
     .ghost{
       margin: 18px auto 0;
       display: block;
@@ -195,30 +228,26 @@
   <main>
     <h1>今日指引</h1>
 
-   <section class="card">
+    <section class="card" aria-label="今日指引卡片">
+      <!-- 🐱 LOGO：用 class 套用圓形＋浮起來 -->
+      <img src="meowlogo.png" alt="喵喵教主" class="card-image">
 
-  <!-- 🐱 LOGO -->
-<img src="meowlogo.png" alt="喵喵教主"
-     style="width:80px; margin:0 auto 16px; display:block; filter: drop-shadow(0 10px 18px rgba(0,0,0,.12));">
+      <p id="msg" class="msg">載入中…</p>
 
-  <p id="msg" class="msg">載入中…</p>
+      <button class="ghost" type="button" onclick="pickOne()">再抽一張</button>
 
-  <button class="ghost" type="button" onclick="pickOne()">再抽一張</button>
+      <a class="primary" href="https://linktr.ee/meowmeowjiaojhu" target="_blank" rel="noopener">
+        來找喵喵
+      </a>
 
-  <a class="primary" href="https://linktr.ee/meowmeowjiaojhu" target="_blank">
-    來找喵喵
-  </a>
-
-  <div class="hint">
-    手機輕碰，遇見剛剛好的訊息。
-  </div>
-</section>
-
+      <div class="hint">
+        手機輕碰，遇見剛剛好的訊息。
+      </div>
+    </section>
   </main>
 
   <script>
-   
- const lines = [
+    const lines = [
       "生命太短，沒時間留給遺憾。",
       "無論你認為自己行還是不行，\n你都是對的。",
       "慢一點，不會讓你錯過屬於你的東西。",
@@ -304,10 +333,26 @@
     ];
 
     function pickOne(){
-      const i = Math.floor(Math.random() * lines.length);
-      document.getElementById("msg").textContent = lines[i];
+      const el = document.getElementById("msg");
+
+      // ✅ 觸發翻卡（確保連點也會重播）
+      el.classList.remove("flip");
+      void el.offsetWidth;
+      el.classList.add("flip");
+
+      // ✅ 翻到一半再換字（像翻牌翻過去才看到新內容）
+      setTimeout(() => {
+        const i = Math.floor(Math.random() * lines.length);
+        el.textContent = lines[i];
+      }, 220);
+
+      // ✅ 動畫結束移除 class
+      setTimeout(() => {
+        el.classList.remove("flip");
+      }, 560);
     }
 
+    // ✅ 進頁面先抽一張
     pickOne();
   </script>
 </body>
