@@ -13,46 +13,34 @@
       --radius: 22px;
     }
 
-    * { box-sizing: border-box; }
+    *{ box-sizing: border-box; }
 
-    /* 🌈 外層：繽紛開心粉彩世界 */
-   background:
-  /* 左上：蜜桃奶霧 */
-  radial-gradient(
-    1200px 700px at 15% 8%,
-    rgba(255, 224, 214, 0.65),
-    transparent 60%
-  ),
+    /* 🌈 整個世界的背景 */
+    body{
+      font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+      margin: 0;
+      min-height: 100vh;
 
-  /* 右上：淡香檳光 */
-  radial-gradient(
-    1000px 650px at 85% 12%,
-    rgba(255, 242, 220, 0.55),
-    transparent 62%
-  ),
+      background:
+        radial-gradient(1100px 700px at 15% 8%,  rgba(255,210,230,0.85), transparent 58%), /* 粉 */
+        radial-gradient(1000px 650px at 85% 12%, rgba(255,238,190,0.85), transparent 60%), /* 粉黃 */
+        radial-gradient(1100px 750px at 20% 92%, rgba(200,230,255,0.82), transparent 62%), /* 粉藍 */
+        radial-gradient(900px 650px at 88% 88%,  rgba(215,255,230,0.78), transparent 64%), /* 粉綠 */
+        radial-gradient(1000px 700px at 70% 35%, rgba(235,215,255,0.78), transparent 62%), /* 粉紫 */
+        linear-gradient(180deg, #fffaf4 0%, #ffffff 55%, #f7f9fb 100%);
 
-  /* 中下：奶藍空氣感（重點！） */
-  radial-gradient(
-    1100px 750px at 50% 90%,
-    rgba(220, 235, 255, 0.55),
-    transparent 65%
-  ),
+      background-attachment: fixed;
 
-  /* 右下：一點點藍紫霧（非常克制） */
-  radial-gradient(
-    900px 600px at 85% 85%,
-    rgba(232, 224, 255, 0.40),
-    transparent 68%
-  ),
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 16px;
+    }
 
-  /* 底色 */
-  linear-gradient(
-    180deg,
-    #fffaf6 0%,
-    #ffffff 55%,
-    #f7f9fb 100%
-  );
-
+    main{
+      width: 100%;
+      max-width: 520px;
+    }
 
     h1{
       font-size: 26px;
@@ -61,20 +49,63 @@
       opacity: 0.95;
     }
 
-    /* 🫧 卡片：只當容器，不搶戲 */
+    /* 🫧 卡片本體 */
     .card{
-      max-width: 520px;
+      position: relative;
       width: 100%;
       border-radius: var(--radius);
       padding: 26px 24px 28px;
       box-shadow: var(--shadow);
 
-      background: rgba(255,255,255,0.55);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.60);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+
+      overflow: hidden;
     }
 
-    /* 🤍 文字區塊：柔霧、被抱住 */
+    /* ✨ 金粉邊框 */
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: var(--radius);
+      padding: 1.6px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 219, 160, 0.95),
+          rgba(255, 244, 210, 0.70),
+          rgba(255, 219, 160, 0.95)
+        );
+
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+
+      pointer-events:none;
+    }
+
+    /* 金粉光暈 */
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:-22px;
+      border-radius: calc(var(--radius) + 20px);
+
+      background:
+        radial-gradient(420px 220px at 20% 10%, rgba(255,220,170,0.25), transparent 60%),
+        radial-gradient(380px 200px at 80% 30%, rgba(255,235,195,0.20), transparent 62%);
+
+      filter: blur(8px);
+      opacity: 0.9;
+      pointer-events:none;
+    }
+
+    /* 💬 指引文字 */
     .msg{
       font-size: 20px;
       line-height: 1.8;
@@ -83,65 +114,42 @@
 
       padding: 22px 20px;
       min-height: 96px;
-
       border-radius: 18px;
 
       background:
-        radial-gradient(
-          500px 260px at 20% 0%,
-          rgba(255,214,224,0.45),
-          transparent 60%
-        ),
-        radial-gradient(
-          480px 260px at 80% 10%,
-          rgba(209,234,255,0.4),
-          transparent 60%
-        ),
-        linear-gradient(
-          180deg,
-          rgba(255,255,255,0.92),
-          rgba(255,255,255,0.88)
-        );
+        radial-gradient(520px 260px at 20% 0%, rgba(255,214,224,0.40), transparent 60%),
+        radial-gradient(520px 260px at 80% 10%, rgba(209,234,255,0.35), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.86));
 
       color: #5a5870;
       text-align: center;
 
-      box-shadow:
-        inset 0 1px 2px rgba(255,255,255,0.6);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.6);
     }
 
-    /* 換一句 */
-    button.btn{
-      border: none;
-      cursor: pointer;
+    /* 🔁 換一句 */
+    button{
       font: inherit;
+      cursor: pointer;
+      border: none;
     }
 
-    button.ghost{
+    .ghost{
       margin: 18px auto 0;
       display: block;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 999px;
       font-weight: 800;
 
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.9);
       color: #111;
-      border: 1px solid rgba(17,17,17,0.4);
+      border: 1px solid rgba(17,17,17,0.35);
 
       box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      transition: transform 0.08s ease, background 0.12s ease;
     }
 
-    button.ghost:hover{
-      background: rgba(255,255,255,0.95);
-    }
-
-    button.ghost:active{
-      transform: scale(0.99);
-    }
-
-    /* 主按鈕 */
-    .btn.primary{
+    /* 🖤 主按鈕 */
+    .primary{
       display: block;
       margin-top: 16px;
       padding: 14px 16px;
@@ -161,9 +169,9 @@
       text-align: center;
     }
 
-    @media (max-width: 420px){
-      .msg{ font-size: 19px; }
-      h1{ font-size: 25px; }
+    @media (max-width:420px){
+      h1{ font-size:25px; }
+      .msg{ font-size:19px; }
     }
   </style>
 </head>
@@ -172,14 +180,12 @@
   <main>
     <h1>今日指引</h1>
 
-    <section class="card" aria-label="今日指引卡片">
+    <section class="card">
       <p id="msg" class="msg">載入中…</p>
 
-      <button class="btn ghost" type="button" onclick="pickOne()">
-        換一句
-      </button>
+      <button class="ghost" onclick="pickOne()">換一句</button>
 
-      <a class="btn primary" href="https://linktr.ee/meowmeowjiaojhu" target="_blank" rel="noopener">
+      <a class="primary" href="https://linktr.ee/meowmeowjiaojhu" target="_blank">
         來找喵喵
       </a>
 
