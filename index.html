@@ -9,111 +9,93 @@
     :root{
       --text:#111;
       --muted:#666;
-      --card-border: rgba(255,255,255,0.55);
-      --shadow: 0 14px 40px rgba(0,0,0,0.08);
+      --shadow: 0 18px 50px rgba(0,0,0,0.12);
       --radius: 22px;
     }
 
     * { box-sizing: border-box; }
 
+    /* 🌈 外層：繽紛開心粉彩世界 */
     body{
-  font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
-  color: var(--text);
-  margin: 0;
+      font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+      margin: 0;
+      min-height: 100vh;
 
-  /* 柔霧彩虹：溫柔但看得見 */
-  background:
-    conic-gradient(
-      from 180deg at 50% 30%,
-      rgba(255, 214, 224, 0.26),  /* 粉霧 */
-      rgba(255, 244, 204, 0.24),  /* 奶油黃 */
-      rgba(228, 255, 234, 0.24),  /* 薄荷綠 */
-      rgba(209, 234, 255, 0.26),  /* 天空藍 */
-      rgba(232, 214, 255, 0.24),  /* 淡紫 */
-      rgba(255, 214, 224, 0.26)
-    ),
-    radial-gradient(
-      1200px 600px at 10% -10%,
-      rgba(255, 214, 224, 0.50),
-      transparent 60%
-    ),
-    radial-gradient(
-      1000px 500px at 90% 10%,
-      rgba(209, 234, 255, 0.45),
-      transparent 60%
-    ),
-    radial-gradient(
-      900px 500px at 50% 100%,
-      rgba(228, 255, 234, 0.45),
-      transparent 60%
-    ),
-    linear-gradient(
-      180deg,
-      #fafbfc 0%,
-      #ffffff 50%,
-      #f6f7f9 100%
-    );
+      background:
+        linear-gradient(
+          135deg,
+          #ffd6e8 0%,
+          #ffeecf 20%,
+          #e8fff0 40%,
+          #e2f2ff 60%,
+          #efe3ff 80%,
+          #ffd6e8 100%
+        );
 
-  background-attachment: fixed;
-  min-height: 100vh;
-}
-
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 16px;
+    }
 
     h1{
       font-size: 26px;
-      margin: 0 0 16px;
-      letter-spacing: 0.5px;
-      opacity: 0.92;
+      margin: 0 0 18px;
+      text-align: center;
+      opacity: 0.95;
     }
 
+    /* 🫧 卡片：只當容器，不搶戲 */
     .card{
-      border: 1px solid var(--card-border);
+      max-width: 520px;
+      width: 100%;
       border-radius: var(--radius);
-      padding: 22px;
+      padding: 26px 24px 28px;
       box-shadow: var(--shadow);
 
-      /* 玻璃霧面感 */
-      background: rgba(255,255,255,0.62);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
+    /* 🤍 文字區塊：柔霧、被抱住 */
     .msg{
       font-size: 20px;
       line-height: 1.8;
       white-space: pre-line;
       margin: 0;
 
-      /* 讓句子區塊更像「被抱住」 */
-      padding: 10px 2px 2px;
-      min-height: 84px; /* 避免換句時卡片高度跳來跳去 */
-    }
+      padding: 22px 20px;
+      min-height: 96px;
 
-    .btn{
-      display: block;
-      margin-top: 18px;
-      padding: 14px 16px;
+      border-radius: 18px;
+
+      background:
+        radial-gradient(
+          500px 260px at 20% 0%,
+          rgba(255,214,224,0.45),
+          transparent 60%
+        ),
+        radial-gradient(
+          480px 260px at 80% 10%,
+          rgba(209,234,255,0.4),
+          transparent 60%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,0.92),
+          rgba(255,255,255,0.88)
+        );
+
+      color: #5a5870;
       text-align: center;
-      border-radius: 14px;
-      text-decoration: none;
-      font-weight: 800;
-      background: #111;
-      color: #fff;
-      transition: transform 0.08s ease, opacity 0.12s ease;
-      user-select: none;
+
+      box-shadow:
+        inset 0 1px 2px rgba(255,255,255,0.6);
     }
 
-    .btn:hover{ opacity: 0.94; }
-    .btn:active{ transform: scale(0.99); }
-
-    .hint{
-      margin-top: 14px;
-      font-size: 13px;
-      color: var(--muted);
-      opacity: 0.95;
-    }
-
-    /* 換一句：放在主按鈕上方、置中、氣質版 */
+    /* 換一句 */
     button.btn{
       border: none;
       cursor: pointer;
@@ -121,34 +103,49 @@
     }
 
     button.ghost{
-      background: rgba(255,255,255,0.85);
-      color: #111;
-      border: 1px solid rgba(17,17,17,0.45);
-      margin: 14px auto 0;
+      margin: 18px auto 0;
       display: block;
-      width: fit-content;
-      padding: 10px 18px;
+      padding: 10px 20px;
       border-radius: 999px;
       font-weight: 800;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-      transition: transform 0.08s ease, background 0.12s ease, border-color 0.12s ease;
+
+      background: rgba(255,255,255,0.85);
+      color: #111;
+      border: 1px solid rgba(17,17,17,0.4);
+
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.08s ease, background 0.12s ease;
     }
 
     button.ghost:hover{
       background: rgba(255,255,255,0.95);
-      border-color: rgba(17,17,17,0.6);
     }
 
     button.ghost:active{
       transform: scale(0.99);
     }
 
-    /* 讓主按鈕跟換一句間距更舒服 */
+    /* 主按鈕 */
     .btn.primary{
-      margin-top: 14px;
+      display: block;
+      margin-top: 16px;
+      padding: 14px 16px;
+      text-align: center;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
+
+      background: #111;
+      color: #fff;
     }
 
-    /* 小螢幕微調 */
+    .hint{
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
     @media (max-width: 420px){
       .msg{ font-size: 19px; }
       h1{ font-size: 25px; }
@@ -157,13 +154,13 @@
 </head>
 
 <body>
-  <main class="wrap">
+  <main>
     <h1>今日指引</h1>
 
     <section class="card" aria-label="今日指引卡片">
       <p id="msg" class="msg">載入中…</p>
 
-      <button class="btn ghost" type="button" onclick="pickOne()" aria-label="換一句今日指引">
+      <button class="btn ghost" type="button" onclick="pickOne()">
         換一句
       </button>
 
@@ -196,9 +193,7 @@
       document.getElementById("msg").textContent = lines[i];
     }
 
-    // 頁面一打開，先抽一句
     pickOne();
   </script>
 </body>
 </html>
-
