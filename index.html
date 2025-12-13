@@ -17,27 +17,25 @@
 
     /* 🌈 外層：繽紛開心粉彩世界 */
     body{
-      font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
-      margin: 0;
-      min-height: 100vh;
+  font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  margin: 0;
+  min-height: 100vh;
 
-      background:
-        linear-gradient(
-          135deg,
-          #ffd6e8 0%,
-          #ffeecf 20%,
-          #e8fff0 40%,
-          #e2f2ff 60%,
-          #efe3ff 80%,
-          #ffd6e8 100%
-        );
+  /* 暖系蜜桃香檳霧感 */
+  background:
+    radial-gradient(1200px 700px at 20% 10%, rgba(255, 226, 216, 0.65), transparent 60%),
+    radial-gradient(1000px 650px at 80% 15%, rgba(255, 241, 214, 0.60), transparent 62%),
+    radial-gradient(1100px 700px at 50% 95%, rgba(255, 232, 240, 0.55), transparent 65%),
+    radial-gradient(900px 600px at 85% 85%, rgba(255, 244, 224, 0.50), transparent 68%),
+    linear-gradient(180deg, #fffaf6 0%, #ffffff 55%, #faf7f4 100%);
 
-      background-attachment: fixed;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 40px 16px;
-    }
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 16px;
+}
+
 
     h1{
       font-size: 26px;
