@@ -1,6 +1,6 @@
 const CACHE_NAME = "today-pwa-v1";
 
-const SHELL = [
+const ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
@@ -9,43 +9,37 @@ const SHELL = [
   "./icons/meowOG.png"
 ];
 
-// ✅ 安裝：快取外殼（不包含 lines.js）
+// 安裝時快取外殼（不快取 lines.js）
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL)));
-  self.skipWaiting(); // ✅ 新 SW 安裝完立刻可接手
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)));
+  self.skipWaiting();
 });
 
-// ✅ 啟用：清掉舊快取 + 立刻接管頁面
+// 啟用時立刻接手（可避免卡住舊 SW）
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    )
-  );
-  self.clients.claim(); // ✅ 立刻控制所有已開頁面
+  event.waitUntil(self.clients.claim());
 });
 
-// ✅ 攔截請求
+// 攔截請求
 self.addEventListener("fetch", (event) => {
-  const req = event.request;
-  const url = new URL(req.url);
+  const url = new URL(event.request.url);
 
-  // ✅ 句子庫：網路優先（確保你更新，大家拿到）
+  // ✅ 句子庫：永遠先抓網路最新（失敗才用舊的）
   if (url.pathname.endsWith("/today/lines.js")) {
     event.respondWith(
-      fetch(req)
+      fetch(event.request)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
           return res;
         })
-        .catch(() => caches.match(req))
+        .catch(() => caches.match(event.request))
     );
     return;
   }
 
-  // ✅ 外殼：快取優先（速度快）
+  // ✅ 其他檔案：快取優先（加速）
   event.respondWith(
-    caches.match(req).then((cached) => cached || fetch(req))
+    caches.match(event.request).then((cached) => cached || fetch(event.request))
   );
 });
