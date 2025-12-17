@@ -13,14 +13,10 @@
       "type": "image/png"
     },
     {
-      "src": "icons/meowlogo512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
       "src": "icons/android-meowlogo512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
