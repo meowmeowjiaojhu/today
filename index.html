@@ -267,39 +267,53 @@
     </section>
   </main>
 
-  <script src="lines.js"></script>
+<script>
+  function pickOne(){
+    const el = document.getElementById("msg");
 
-  <script>
-    function pickOne(){
-      const el = document.getElementById("msg");
+    // 觸發翻卡（確保連點也會重播）
+    el.classList.remove("flip");
+    void el.offsetWidth;
+    el.classList.add("flip");
 
-      // 觸發翻卡（確保連點也會重播）
+    // 翻到一半再換字
+    setTimeout(() => {
+      const lines = window.LINES || ["（句子庫尚未載入）"];
+      const i = Math.floor(Math.random() * lines.length);
+      el.textContent = lines[i];
+    }, 220);
+
+    // 動畫結束移除 class
+    setTimeout(() => {
       el.classList.remove("flip");
-      void el.offsetWidth;
-      el.classList.add("flip");
+    }, 560);
+  }
 
-      // 翻到一半再換字
-      setTimeout(() => {
-        const lines = window.LINES || ["（句子庫尚未載入）"];
-        const i = Math.floor(Math.random() * lines.length);
-        el.textContent = lines[i];
-      }, 220);
-
-      // 動畫結束移除 class
-      setTimeout(() => {
-        el.classList.remove("flip");
-      }, 560);
-    }
-
-    // 進頁面先抽一張
-    pickOne();
-  </script>
+  // ✅ 永遠抓到最新 lines.js（破快取）
+  (function loadLines(){
+    const s = document.createElement("script");
+    s.src = `./lines.js?v=${Date.now()}`;
+    s.onload = () => pickOne(); // lines 載入完成後再抽第一張
+    s.onerror = () => {
+      document.getElementById("msg").textContent = "（句子庫載入失敗，請重開或稍後再試）";
+    };
+    document.head.appendChild(s);
+  })();
+</script>
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js");
+    navigator.serviceWorker.register("./sw.js").then((reg) => {
+      // ✅ 每次開啟都檢查 SW 有沒有新版
+      reg.update();
+
+      // ✅ 一旦 SW 換新控制器，自動刷新到新版外殼
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        window.location.reload();
+      });
+    });
   }
 </script>
-  
+
 </body>
 </html>
