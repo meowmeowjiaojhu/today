@@ -31,6 +31,9 @@
 function saveAsImage() {
   const target = document.getElementById("card-result");
 
+  // ⭐【新增】進入拍照模式
+  target.classList.add("capture-mode");
+
   // 暫時隱藏分享按鈕
   document.querySelectorAll(".capture-hide").forEach(el => {
     el.classList.add("hide-for-capture");
@@ -49,6 +52,9 @@ function saveAsImage() {
     document.querySelectorAll(".capture-hide").forEach(el => {
       el.classList.remove("hide-for-capture");
     });
+
+    // ⭐【新增】離開拍照模式
+    target.classList.remove("capture-mode");
   });
 }
     
@@ -277,6 +283,18 @@ function saveAsImage() {
 .share-btn {
   display: block;
   margin: 14px auto 0;
+}
+
+    .card.capture-mode {
+  background: linear-gradient(
+    180deg,
+    #fffaf4 0%,
+    #ffffff 100%
+  ) !important;
+
+  backdrop-filter: none !important;
+
+  box-shadow: 0 24px 60px rgba(0,0,0,0.18) !important;
 }
     
   </style>
