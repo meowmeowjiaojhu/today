@@ -27,6 +27,31 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-BSEZT46Z9V');
+
+function saveAsImage() {
+  const target = document.getElementById("card-result");
+
+  // 暫時隱藏分享按鈕
+  document.querySelectorAll(".capture-hide").forEach(el => {
+    el.classList.add("hide-for-capture");
+  });
+
+  html2canvas(target, {
+    backgroundColor: null,
+    scale: 2
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "my-card.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+
+    // 拍完再顯示回來
+    document.querySelectorAll(".capture-hide").forEach(el => {
+      el.classList.remove("hide-for-capture");
+    });
+  });
+}
+    
   </script>
 
   <style>
@@ -242,6 +267,12 @@
       h1{ font-size:25px; }
       .msg{ font-size:19px; }
     }
+
+/* 📸 存成分享圖時，暫時隱藏按鈕 */
+.hide-for-capture {
+  display: none !important;
+}
+    
   </style>
 </head>
 
@@ -249,7 +280,7 @@
   <main>
     <h1>今日指引</h1>
 
-    <section class="card" aria-label="今日指引卡片">
+    <section class="card" id="card-result" aria-label="今日指引卡片">
       <!-- 🐱 LOGO：用 class 套用圓形＋浮起來 -->
       <img src="icons/meowlogo512.png" alt="喵喵教主" class="card-image">
 
@@ -261,8 +292,13 @@
         來找喵喵
       </a>
 
+     <button onclick="saveAsImage()" class="capture-hide">
+  📸 存成分享圖
+</button>
+
       <div class="hint">
         感受共時的美好
+       <p class="card-text">讓直覺帶領你</p>
       </div>
     </section>
   </main>
@@ -292,7 +328,7 @@
   // ✅ 永遠抓到最新 lines.js（破快取）
   (function loadLines(){
     const s = document.createElement("script");
-    s.src = `./lines.js?v=${Date.now()}`;
+    s.src = ./lines.js?v=${Date.now()};
     s.onload = () => pickOne(); // lines 載入完成後再抽第一張
     s.onerror = () => {
       document.getElementById("msg").textContent = "（句子庫載入失敗，請重開或稍後再試）";
@@ -315,5 +351,6 @@
   }
 </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </body>
 </html>
