@@ -27,37 +27,6 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-BSEZT46Z9V');
-
-function saveAsImage() {
-  const target = document.getElementById("card-result");
-
-  // ⭐【新增】進入拍照模式
-  target.classList.add("capture-mode");
-
-  // 暫時隱藏分享按鈕
-  document.querySelectorAll(".capture-hide").forEach(el => {
-    el.classList.add("hide-for-capture");
-  });
-
-  html2canvas(target, {
-    backgroundColor: null,
-    scale: 2
-  }).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "my-card.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-
-    // 拍完再顯示回來
-    document.querySelectorAll(".capture-hide").forEach(el => {
-      el.classList.remove("hide-for-capture");
-    });
-
-    // ⭐【新增】離開拍照模式
-    target.classList.remove("capture-mode");
-  });
-}
-    
   </script>
 
   <style>
@@ -103,7 +72,7 @@ function saveAsImage() {
       opacity: 0.95;
     }
 
-    /* 🫧 卡片本體 */
+    /* 🫧 卡片本體（畫面上是玻璃） */
     .card{
       position: relative;
       width: 100%;
@@ -118,7 +87,7 @@ function saveAsImage() {
       overflow: hidden;
     }
 
-    /* 🐱 Logo 圖：圓形 + 去白底感 + 浮起來 */
+    /* 🐱 Logo 圖 */
     .card-image{
       width: 80px;
       height: 80px;
@@ -127,8 +96,6 @@ function saveAsImage() {
 
       display: block;
       margin: 0 auto 16px;
-
-      /* 浮起來：底下陰影 */
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     }
 
@@ -139,7 +106,6 @@ function saveAsImage() {
       inset:0;
       border-radius: var(--radius);
       padding: 1.6px;
-
       background:
         linear-gradient(
           135deg,
@@ -163,17 +129,15 @@ function saveAsImage() {
       position:absolute;
       inset:-22px;
       border-radius: calc(var(--radius) + 20px);
-
       background:
         radial-gradient(420px 220px at 20% 10%, rgba(255,220,170,0.25), transparent 60%),
         radial-gradient(380px 200px at 80% 30%, rgba(255,235,195,0.20), transparent 62%);
-
       filter: blur(8px);
       opacity: 0.9;
       pointer-events:none;
     }
 
-    /* 💬 指引文字（+ 翻卡動畫會用到的屬性都放在這裡） */
+    /* 💬 指引文字 */
     .msg{
       font-size: 20px;
       line-height: 1.8;
@@ -191,21 +155,17 @@ function saveAsImage() {
 
       color: #5a5870;
       text-align: center;
-
       box-shadow: inset 0 1px 2px rgba(255,255,255,0.6);
 
-      /* ✅ 翻卡需要的三行（放這裡，不重複） */
       transform-origin: center;
       backface-visibility: hidden;
       will-change: transform, opacity;
     }
 
-    /* 🎴 翻卡：觸發 class */
     .msg.flip{
       animation: flipCard 520ms ease;
     }
 
-    /* 🎴 翻卡關鍵影格：縮一下 → 翻 → 回來 */
     @keyframes flipCard{
       0%   { transform: rotateY(0deg)   scale(1);    opacity: 1; }
       35%  { transform: rotateY(70deg)  scale(0.98); opacity: 0.35; }
@@ -213,14 +173,8 @@ function saveAsImage() {
       100% { transform: rotateY(0deg)   scale(1);    opacity: 1; }
     }
 
-    /* 🔁 按鈕通用 */
-    button{
-      font: inherit;
-      cursor: pointer;
-      border: none;
-    }
+    button{ font: inherit; cursor: pointer; border: none; }
 
-    /* 🔁 再抽一張 */
     .ghost{
       margin: 18px auto 0;
       display: block;
@@ -231,11 +185,9 @@ function saveAsImage() {
       background: rgba(255,255,255,0.9);
       color: #111;
       border: 1px solid rgba(17,17,17,0.35);
-
       box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     }
 
-    /* 🖤 主按鈕 */
     .primary{
       display: block;
       margin-top: 16px;
@@ -245,16 +197,15 @@ function saveAsImage() {
       text-decoration: none;
       font-weight: 800;
 
-      /* 🌈 Logo 金紫漸層 */
       background: linear-gradient(
         135deg,
-        #6b5cff 0%,    /* 紫 */
+        #6b5cff 0%,
         #9b7cff 30%,
-        #f5c97b 70%,   /* 金 */
+        #f5c97b 70%,
         #f0b94d 100%
       );
 
-      color: #2a1a00; /* 深棕，搭金色比較高級 */
+      color: #2a1a00;
       box-shadow:
         0 10px 28px rgba(107,92,255,0.25),
         0 6px 18px rgba(245,201,123,0.25);
@@ -268,35 +219,47 @@ function saveAsImage() {
       color: var(--muted);
       text-align: center;
     }
+    .hint span{ display:block; }
 
     @media (max-width:420px){
       h1{ font-size:25px; }
       .msg{ font-size:19px; }
     }
 
-/* 📸 存成分享圖時，暫時隱藏按鈕 */
-.hide-for-capture {
-  display: none !important;
-}
+    /* 📸 存成分享圖時，暫時隱藏按鈕 */
+    .hide-for-capture { display: none !important; }
 
     /* 📸 分享圖按鈕置中 */
-.share-btn {
-  display: block;
-  margin: 14px auto 0;
-}
+    .share-btn{
+      display: block;
+      margin: 14px auto 0;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(17,17,17,0.25);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+    }
+    .share-btn:disabled{
+      opacity: .55;
+      cursor: not-allowed;
+    }
 
-    .card.capture-mode {
-  background: linear-gradient(
-    180deg,
-    #fffaf4 0%,
-    #ffffff 100%
-  ) !important;
-
-  backdrop-filter: none !important;
-
-  box-shadow: 0 24px 60px rgba(0,0,0,0.18) !important;
-}
-    
+    /* ✅ 拍照模式：換成「乾淨紙感」避免 html2canvas 灰霧 */
+    .card.capture-mode{
+      background: linear-gradient(180deg, #fffaf4 0%, #ffffff 100%) !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.12) !important;
+    }
+    .card.capture-mode::before,
+    .card.capture-mode::after{
+      display: none !important;
+    }
+    .card.capture-mode .card-image{
+      background: #fff;
+      padding: 6px;
+    }
   </style>
 </head>
 
@@ -305,79 +268,98 @@ function saveAsImage() {
     <h1>今日指引</h1>
 
     <section class="card" id="card-result" aria-label="今日指引卡片">
-      <!-- 🐱 LOGO：用 class 套用圓形＋浮起來 -->
       <img src="icons/meowlogo512.png" alt="喵喵教主" class="card-image">
-
       <p id="msg" class="msg">載入中…</p>
 
-      <button class="ghost" type="button" onclick="pickOne()">再抽一張</button>
+      <button class="ghost capture-hide" type="button" onclick="pickOne()">再抽一張</button>
 
-      <a class="primary" href="https://meowmeowjiaojhu.github.io/links/" target="_blank" rel="noopener">
+      <a class="primary capture-hide" href="https://meowmeowjiaojhu.github.io/links/" target="_blank" rel="noopener">
         來找喵喵
       </a>
 
-    <button
-  onclick="saveAsImage()"
-  class="capture-hide share-btn"
->
-  📸 存成分享圖
-</button>
+      <button id="btnSave" onclick="saveAsImage()" class="capture-hide share-btn">
+        📸 存成分享圖
+      </button>
 
       <div class="hint">
-        感受共時的美好
-       <p class="card-text">讓直覺帶領你</p>
+        <span>感受共時的美好</span>
+        <span>讓直覺帶領你</span>
       </div>
     </section>
   </main>
 
-<script>
-  function pickOne(){
-    const el = document.getElementById("msg");
-
-    // 觸發翻卡（確保連點也會重播）
-    el.classList.remove("flip");
-    void el.offsetWidth;
-    el.classList.add("flip");
-
-    // 翻到一半再換字
-    setTimeout(() => {
-      const lines = window.LINES || ["（句子庫尚未載入）"];
-      const i = Math.floor(Math.random() * lines.length);
-      el.textContent = lines[i];
-    }, 220);
-
-    // 動畫結束移除 class
-    setTimeout(() => {
+  <script>
+    function pickOne(){
+      const el = document.getElementById("msg");
       el.classList.remove("flip");
-    }, 560);
-  }
+      void el.offsetWidth;
+      el.classList.add("flip");
 
-  // ✅ 永遠抓到最新 lines.js（破快取）
-  (function loadLines(){
-    const s = document.createElement("script");
-    s.src = `./lines.js?v=${Date.now()}`;
-    s.onload = () => pickOne(); // lines 載入完成後再抽第一張
-    s.onerror = () => {
-      document.getElementById("msg").textContent = "（句子庫載入失敗，請重開或稍後再試）";
-    };
-    document.head.appendChild(s);
-  })();
-</script>
+      setTimeout(() => {
+        const lines = window.LINES || ["（句子庫尚未載入）"];
+        const i = Math.floor(Math.random() * lines.length);
+        el.textContent = lines[i];
+      }, 220);
 
-<script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js").then((reg) => {
-      // ✅ 每次開啟都檢查 SW 有沒有新版
-      reg.update();
+      setTimeout(() => el.classList.remove("flip"), 560);
+    }
 
-      // ✅ 一旦 SW 換新控制器，自動刷新到新版外殼
-      navigator.serviceWorker.addEventListener("controllerchange", () => {
-        window.location.reload();
+    // ✅ 永遠抓到最新 lines.js（破快取）
+    (function loadLines(){
+      const s = document.createElement("script");
+      s.src = `./lines.js?v=${Date.now()}`;
+      s.onload = () => pickOne();
+      s.onerror = () => {
+        document.getElementById("msg").textContent = "（句子庫載入失敗，請重開或稍後再試）";
+      };
+      document.head.appendChild(s);
+    })();
+
+    // ✅ 存圖（等 html2canvas 載入才可用）
+    function saveAsImage(){
+      const target = document.getElementById("card-result");
+      const btn = document.getElementById("btnSave");
+
+      if (typeof html2canvas !== "function") {
+        alert("存圖工具尚未載入，請稍等一下再按一次～");
+        return;
+      }
+
+      btn.disabled = true;
+
+      target.classList.add("capture-mode");
+      document.querySelectorAll(".capture-hide").forEach(el => el.classList.add("hide-for-capture"));
+
+      html2canvas(target, {
+        backgroundColor: "#fffaf4",
+        scale: 2
+      }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "my-card.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      }).catch(() => {
+        alert("存圖失敗，可能是瀏覽器限制或資源載入問題。");
+      }).finally(() => {
+        document.querySelectorAll(".capture-hide").forEach(el => el.classList.remove("hide-for-capture"));
+        target.classList.remove("capture-mode");
+        btn.disabled = false;
       });
-    });
-  }
-</script>
+    }
+  </script>
 
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js").then((reg) => {
+        reg.update();
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          window.location.reload();
+        });
+      });
+    }
+  </script>
+
+  <!-- ✅ 放在最底下：確保前面 DOM 先好 -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </body>
 </html>
