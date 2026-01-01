@@ -272,6 +272,12 @@ function saveAsImage() {
 .hide-for-capture {
   display: none !important;
 }
+
+    /* 📸 分享圖按鈕置中 */
+.share-btn {
+  display: block;
+  margin: 14px auto 0;
+}
     
   </style>
 </head>
@@ -292,7 +298,10 @@ function saveAsImage() {
         來找喵喵
       </a>
 
-     <button onclick="saveAsImage()" class="capture-hide">
+    <button
+  onclick="saveAsImage()"
+  class="capture-hide share-btn"
+>
   📸 存成分享圖
 </button>
 
@@ -328,7 +337,7 @@ function saveAsImage() {
   // ✅ 永遠抓到最新 lines.js（破快取）
   (function loadLines(){
     const s = document.createElement("script");
-    s.src = ./lines.js?v=${Date.now()};
+    s.src = `./lines.js?v=${Date.now()}`;
     s.onload = () => pickOne(); // lines 載入完成後再抽第一張
     s.onerror = () => {
       document.getElementById("msg").textContent = "（句子庫載入失敗，請重開或稍後再試）";
