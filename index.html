@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
+  <!-- ✅ 社群分享縮圖（OG） -->
   <meta property="og:title" content="今日指引｜喵喵教主">
   <meta property="og:description" content="今天也是美好的一天">
   <meta property="og:image" content="https://meowmeowjiaojhu.github.io/today/icons/meowOG.png">
@@ -11,12 +12,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>今日指引</title>
 
+  <!-- ✅ PWA（App 身分） -->
   <link rel="manifest" href="./manifest.webmanifest">
   <meta name="theme-color" content="#120a2a">
 
+  <!-- 🟡 favicon / iOS 桌面圖示 -->
   <link rel="icon" type="image/png" sizes="512x512" href="icons/meowlogo512.png">
   <link rel="apple-touch-icon" href="icons/meowlogo192.png">
 
+  <!-- ✅ Google Analytics（GA4） -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BSEZT46Z9V"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -27,239 +31,211 @@
 
   <style>
     :root{
+      --text:#111;
+      --muted:#666;
       --shadow: 0 18px 50px rgba(0,0,0,0.12);
       --radius: 22px;
-
-      --site-bg:
-        radial-gradient(1100px 700px at 15% 8%,  rgba(255,210,230,0.85), transparent 58%),
-        radial-gradient(1000px 650px at 85% 12%, rgba(255,238,190,0.85), transparent 60%),
-        radial-gradient(1100px 750px at 20% 92%, rgba(200,230,255,0.82), transparent 62%),
-        radial-gradient(900px 650px at 88% 88%,  rgba(215,255,230,0.78), transparent 64%),
-        radial-gradient(1000px 700px at 70% 35%, rgba(235,215,255,0.78), transparent 62%),
-        linear-gradient(180deg, #fffaf4 0%, #ffffff 55%, #f7f9fb 100%);
-
-      --gold-frame:
-        linear-gradient(
-          135deg,
-          rgba(255,219,160,.95),
-          rgba(255,244,210,.7),
-          rgba(255,219,160,.95)
-        );
     }
+    *{ box-sizing: border-box; }
 
-    *{ box-sizing:border-box; }
-
+    /* 🌈 整個世界的背景 */
     body{
       font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
-      margin:0;
-      min-height:100vh;
-      background: var(--site-bg);
+      margin: 0;
+      min-height: 100vh;
+
+      background:
+        radial-gradient(1100px 700px at 15% 8%,  rgba(255,210,230,0.85), transparent 58%), /* 粉 */
+        radial-gradient(1000px 650px at 85% 12%, rgba(255,238,190,0.85), transparent 60%), /* 粉黃 */
+        radial-gradient(1100px 750px at 20% 92%, rgba(200,230,255,0.82), transparent 62%), /* 粉藍 */
+        radial-gradient(900px 650px at 88% 88%,  rgba(215,255,230,0.78), transparent 64%), /* 粉綠 */
+        radial-gradient(1000px 700px at 70% 35%, rgba(235,215,255,0.78), transparent 62%), /* 粉紫 */
+        linear-gradient(180deg, #fffaf4 0%, #ffffff 55%, #f7f9fb 100%);
+
       background-attachment: fixed;
 
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      padding:40px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 16px;
     }
 
-    main{ width:100%; max-width:520px; }
+    main{
+      width: 100%;
+      max-width: 520px;
+    }
 
     h1{
-      font-size:26px;
-      margin:0 0 18px;
-      text-align:center;
-      letter-spacing:.06em;
-      opacity:.95;
+      font-size: 26px;
+      margin: 0 0 18px;
+      text-align: center;
+      opacity: 0.95;
     }
 
+    /* 🫧 卡片本體 */
     .card{
-      position:relative;
-      border-radius:var(--radius);
-      padding:26px 24px 28px;
-      box-shadow:var(--shadow);
+      position: relative;
+      width: 100%;
+      border-radius: var(--radius);
+      padding: 26px 24px 28px;
+      box-shadow: var(--shadow);
 
       background: rgba(255,255,255,0.60);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
 
-      overflow:hidden;
+      overflow: hidden;
     }
 
-    /* logo：可愛圓弧、無白框 */
+    /* 🐱 Logo 圖：圓形 + 去白底感 + 浮起來 */
     .card-image{
-      width:108px;
-      height:108px;
-      border-radius:26px;
-      object-fit:cover;
-      background:transparent;
-      display:block;
-      margin:0 auto 18px;
-      box-shadow:0 12px 26px rgba(0,0,0,0.14);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+
+      display: block;
+      margin: 0 auto 16px;
+
+      /* 浮起來：底下陰影 */
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     }
 
-    /* 金框：保留 */
+    /* ✨ 金粉邊框 */
     .card::before{
       content:"";
       position:absolute;
       inset:0;
-      border-radius:var(--radius);
-      padding:1.6px;
-      background: var(--gold-frame);
+      border-radius: var(--radius);
+      padding: 1.6px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 219, 160, 0.95),
+          rgba(255, 244, 210, 0.70),
+          rgba(255, 219, 160, 0.95)
+        );
 
       -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
-      -webkit-mask-composite:xor;
-      mask-composite:exclude;
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
 
       pointer-events:none;
     }
 
-    /* 網站版的光暈（這個會害存圖變霧，所以存圖時會關掉） */
+    /* 金粉光暈 */
     .card::after{
       content:"";
       position:absolute;
       inset:-22px;
       border-radius: calc(var(--radius) + 20px);
+
       background:
         radial-gradient(420px 220px at 20% 10%, rgba(255,220,170,0.25), transparent 60%),
         radial-gradient(380px 200px at 80% 30%, rgba(255,235,195,0.20), transparent 62%);
+
       filter: blur(8px);
-      opacity:.9;
+      opacity: 0.9;
       pointer-events:none;
     }
 
+    /* 💬 指引文字（+ 翻卡動畫會用到的屬性都放在這裡） */
     .msg{
-      font-size:20px;
-      line-height:1.85;
-      white-space:pre-line;
-      margin:0;
-      padding:22px 20px;
-      border-radius:18px;
+      font-size: 20px;
+      line-height: 1.8;
+      white-space: pre-line;
+      margin: 0;
+
+      padding: 22px 20px;
+      min-height: 96px;
+      border-radius: 18px;
 
       background:
-        radial-gradient(520px 260px at 20% 0%, rgba(255,214,224,.40), transparent 60%),
-        radial-gradient(520px 260px at 80% 10%, rgba(209,234,255,.35), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.90));
+        radial-gradient(520px 260px at 20% 0%, rgba(255,214,224,0.40), transparent 60%),
+        radial-gradient(520px 260px at 80% 10%, rgba(209,234,255,0.35), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.86));
 
-      color:#4f4d66;
-      text-align:center;
+      color: #5a5870;
+      text-align: center;
 
-      overflow-wrap:anywhere;
-      word-break:break-word;
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.6);
+
+      /* ✅ 翻卡需要的三行（放這裡，不重複） */
+      transform-origin: center;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
     }
 
-    button{ font:inherit; cursor:pointer; border:none; }
-
-    .ghost, .share-btn{
-      display:block;
-      margin:14px auto 0;
-      padding:10px 22px;
-      border-radius:999px;
-      font-weight:900;
-      background: rgba(255,255,255,0.92);
-      border:1px solid rgba(17,17,17,0.22);
-      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    /* 🎴 翻卡：觸發 class */
+    .msg.flip{
+      animation: flipCard 520ms ease;
     }
 
+    /* 🎴 翻卡關鍵影格：縮一下 → 翻 → 回來 */
+    @keyframes flipCard{
+      0%   { transform: rotateY(0deg)   scale(1);    opacity: 1; }
+      35%  { transform: rotateY(70deg)  scale(0.98); opacity: 0.35; }
+      60%  { transform: rotateY(110deg) scale(0.98); opacity: 0.35; }
+      100% { transform: rotateY(0deg)   scale(1);    opacity: 1; }
+    }
+
+    /* 🔁 按鈕通用 */
+    button{
+      font: inherit;
+      cursor: pointer;
+      border: none;
+    }
+
+    /* 🔁 再抽一張 */
+    .ghost{
+      margin: 18px auto 0;
+      display: block;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+
+      background: rgba(255,255,255,0.9);
+      color: #111;
+      border: 1px solid rgba(17,17,17,0.35);
+
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    /* 🖤 主按鈕 */
     .primary{
-      display:block;
-      margin-top:16px;
-      padding:14px;
-      text-align:center;
-      border-radius:14px;
-      text-decoration:none;
-      font-weight:900;
-      letter-spacing:.02em;
+      display: block;
+      margin-top: 16px;
+      padding: 14px 16px;
+      text-align: center;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
 
-      background: linear-gradient(135deg,#6b5cff,#9b7cff,#f5c97b,#f0b94d);
-      color:#2a1a00;
-      box-shadow:0 10px 28px rgba(107,92,255,.22);
+      /* 🌈 Logo 金紫漸層 */
+      background: linear-gradient(
+        135deg,
+        #6b5cff 0%,    /* 紫 */
+        #9b7cff 30%,
+        #f5c97b 70%,   /* 金 */
+        #f0b94d 100%
+      );
+
+      color: #2a1a00; /* 深棕，搭金色比較高級 */
+      box-shadow:
+        0 10px 28px rgba(107,92,255,0.25),
+        0 6px 18px rgba(245,201,123,0.25);
+
+      transition: all .25s ease;
     }
 
     .hint{
-      margin-top:16px;
-      font-size:13px;
-      color:rgba(70,70,90,.8);
-      text-align:center;
-      letter-spacing:.06em;
-      opacity:.9;
-    }
-
-    .hide-for-capture{ display:none!important; }
-
-    /* ======================
-       📸 4×5 存圖畫布
-       ====================== */
-
-    /* 讓畫布本體固定 1080×1350（存圖拍這個，不拍整個網頁） */
-    .capture-area{
-      width:100%;
-    }
-
-    .capture-area.capture-mode{
-      width:1080px;
-      height:1350px;
-      border-radius:48px;
-
-      /* 這裡做「可分享」比例：卡片要大 */
-      padding: 90px 72px;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      background: var(--site-bg);
-    }
-
-    /* 存圖時：關掉所有 blur / 光暈 / 玻璃（避免霧） */
-    .capture-area.capture-mode .card{
-      width:100%;
-      max-width: 980px;
-
-      padding: 84px 74px 72px;
-      border-radius: 44px;
-
-      background: rgba(255,255,255,0.96);
-      backdrop-filter:none !important;
-      -webkit-backdrop-filter:none !important;
-
-      box-shadow: 0 28px 70px rgba(0,0,0,0.18);
-    }
-
-    .capture-area.capture-mode .card::after{
-      display:none !important;   /* ✅ 霧的主犯：直接關掉 */
-      filter:none !important;
-      opacity:0 !important;
-    }
-
-    /* 存圖時：logo 更大仍圓弧 */
-    .capture-area.capture-mode .card-image{
-      width: 170px;
-      height: 170px;
-      border-radius: 42px;
-      margin: 0 auto 34px;
-      box-shadow: 0 18px 48px rgba(0,0,0,0.16);
-    }
-
-    /* 存圖時：文字區改成實色底（更清楚、不霧） */
-    .capture-area.capture-mode .msg{
-      font-size: 30px;
-      line-height: 2.0;
-      padding: 34px 34px;
-      border-radius: 26px;
-
-      background: rgba(255,255,255,0.98); /* ✅ 改實色 */
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
-
-      color:#3f3d55;
-      letter-spacing:.02em;
-    }
-
-    .capture-area.capture-mode .hint{
-      margin-top: 26px;
-      font-size: 16px;
-      opacity: .75;
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
     }
 
     @media (max-width:420px){
@@ -273,89 +249,71 @@
   <main>
     <h1>今日指引</h1>
 
-    <!-- ✅ 存圖只拍這層 -->
-    <section id="captureArea" class="capture-area">
-      <section class="card" id="card-result">
-        <img src="icons/meowlogo512.png" alt="喵喵教主" class="card-image">
-        <p id="msg" class="msg">載入中…</p>
+    <section class="card" aria-label="今日指引卡片">
+      <!-- 🐱 LOGO：用 class 套用圓形＋浮起來 -->
+      <img src="icons/meowlogo512.png" alt="喵喵教主" class="card-image">
 
-        <button class="ghost capture-hide" type="button" onclick="pickOne()">再抽一張</button>
-        <a class="primary capture-hide" href="https://meowmeowjiaojhu.github.io/links/" target="_blank" rel="noopener">來找喵喵</a>
-        <button id="btnSave" class="capture-hide share-btn" type="button">📸 存成分享圖</button>
+      <p id="msg" class="msg">載入中…</p>
 
-        <div class="hint"><span>感受共時的美好</span></div>
-      </section>
+      <button class="ghost" type="button" onclick="pickOne()">再抽一張</button>
+
+      <a class="primary" href="https://meowmeowjiaojhu.github.io/links/" target="_blank" rel="noopener">
+        來找喵喵
+      </a>
+
+      <div class="hint">
+        感受共時的美好
+      </div>
     </section>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+  function pickOne(){
+    const el = document.getElementById("msg");
 
-  <script>
-    function pickOne(){
-      const el = document.getElementById("msg");
+    // 觸發翻卡（確保連點也會重播）
+    el.classList.remove("flip");
+    void el.offsetWidth;
+    el.classList.add("flip");
+
+    // 翻到一半再換字
+    setTimeout(() => {
       const lines = window.LINES || ["（句子庫尚未載入）"];
       const i = Math.floor(Math.random() * lines.length);
       el.textContent = lines[i];
-    }
+    }, 220);
 
-    (function loadLines(){
-      const s = document.createElement("script");
-      s.src = `./lines.js?v=${Date.now()}`;
-      s.onload = () => pickOne();
-      s.onerror = () => {
-        document.getElementById("msg").textContent = "（句子庫載入失敗，請重開或稍後再試）";
-      };
-      document.head.appendChild(s);
-    })();
+    // 動畫結束移除 class
+    setTimeout(() => {
+      el.classList.remove("flip");
+    }, 560);
+  }
 
-    async function saveAsImage(){
-      const area = document.getElementById("captureArea");
-      const btn = document.getElementById("btnSave");
+  // ✅ 永遠抓到最新 lines.js（破快取）
+  (function loadLines(){
+    const s = document.createElement("script");
+    s.src = `./lines.js?v=${Date.now()}`;
+    s.onload = () => pickOne(); // lines 載入完成後再抽第一張
+    s.onerror = () => {
+      document.getElementById("msg").textContent = "（句子庫載入失敗，請重開或稍後再試）";
+    };
+    document.head.appendChild(s);
+  })();
+</script>
 
-      if (typeof html2canvas !== "function") {
-        alert("存圖工具尚未載入，稍等一下再按一次～");
-        return;
-      }
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js").then((reg) => {
+      // ✅ 每次開啟都檢查 SW 有沒有新版
+      reg.update();
 
-      btn.disabled = true;
-
-      area.classList.add("capture-mode");
-      document.querySelectorAll(".capture-hide").forEach(el => el.classList.add("hide-for-capture"));
-
-      requestAnimationFrame(() => {
-        html2canvas(area, {
-          backgroundColor: null,
-          scale: 2,
-          useCORS: true
-        }).then(canvas => {
-          const link = document.createElement("a");
-          link.download = "today-card-4x5.png";
-          link.href = canvas.toDataURL("image/png");
-          link.click();
-        }).catch((e) => {
-          console.error(e);
-          alert("存圖失敗，可能是資源載入或瀏覽器限制。");
-        }).finally(() => {
-          area.classList.remove("capture-mode");
-          document.querySelectorAll(".capture-hide").forEach(el => el.classList.remove("hide-for-capture"));
-          btn.disabled = false;
-        });
+      // ✅ 一旦 SW 換新控制器，自動刷新到新版外殼
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        window.location.reload();
       });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const btn = document.getElementById("btnSave");
-      if (btn) btn.addEventListener("click", saveAsImage);
     });
+  }
+</script>
 
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js").then((reg) => {
-        reg.update();
-        navigator.serviceWorker.addEventListener("controllerchange", () => {
-          window.location.reload();
-        });
-      });
-    }
-  </script>
 </body>
 </html>
