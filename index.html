@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <!-- ✅ 社群分享縮圖（OG） -->
   <meta property="og:title" content="今日指引｜喵喵教主">
   <meta property="og:description" content="今天也是美好的一天">
   <meta property="og:image" content="https://meowmeowjiaojhu.github.io/today/icons/meowOG.png">
@@ -12,15 +11,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>今日指引</title>
 
-  <!-- ✅ PWA -->
   <link rel="manifest" href="./manifest.webmanifest">
   <meta name="theme-color" content="#120a2a">
 
-  <!-- favicon -->
   <link rel="icon" type="image/png" sizes="512x512" href="icons/meowlogo512.png">
   <link rel="apple-touch-icon" href="icons/meowlogo192.png">
 
-  <!-- GA -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BSEZT46Z9V"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -31,32 +27,39 @@
 
   <style>
     :root{
-      --text:#111;
-      --muted:#666;
       --shadow: 0 18px 50px rgba(0,0,0,0.12);
       --radius: 22px;
-      --bg1:
+
+      --site-bg:
         radial-gradient(1100px 700px at 15% 8%,  rgba(255,210,230,0.85), transparent 58%),
         radial-gradient(1000px 650px at 85% 12%, rgba(255,238,190,0.85), transparent 60%),
         radial-gradient(1100px 750px at 20% 92%, rgba(200,230,255,0.82), transparent 62%),
         radial-gradient(900px 650px at 88% 88%,  rgba(215,255,230,0.78), transparent 64%),
         radial-gradient(1000px 700px at 70% 35%, rgba(235,215,255,0.78), transparent 62%),
         linear-gradient(180deg, #fffaf4 0%, #ffffff 55%, #f7f9fb 100%);
-    }
-    *{ box-sizing: border-box; }
 
-    /* 🌈 背景 */
+      --gold-frame:
+        linear-gradient(
+          135deg,
+          rgba(255,219,160,.95),
+          rgba(255,244,210,.7),
+          rgba(255,219,160,.95)
+        );
+    }
+
+    *{ box-sizing:border-box; }
+
     body{
       font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      background: var(--bg1);
+      margin:0;
+      min-height:100vh;
+      background: var(--site-bg);
       background-attachment: fixed;
 
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 40px 16px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:40px 16px;
     }
 
     main{ width:100%; max-width:520px; }
@@ -69,52 +72,50 @@
       opacity:.95;
     }
 
-    /* 🫧 卡片 */
     .card{
-      position: relative;
-      border-radius: var(--radius);
-      padding: 26px 24px 28px;
-      box-shadow: var(--shadow);
+      position:relative;
+      border-radius:var(--radius);
+      padding:26px 24px 28px;
+      box-shadow:var(--shadow);
+
       background: rgba(255,255,255,0.60);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      overflow: hidden;
+
+      overflow:hidden;
     }
 
-    /* 🐱 Logo：可愛圓弧、無白框 */
+    /* logo：可愛圓弧、無白框 */
     .card-image{
-      width: 108px;
-      height: 108px;
-      border-radius: 26px;   /* 圓角方形 */
-      object-fit: cover;
-      background: transparent;
-      padding: 0;
-      display: block;
-      margin: 0 auto 18px;
-      box-shadow: 0 12px 26px rgba(0,0,0,0.14);
+      width:108px;
+      height:108px;
+      border-radius:26px;
+      object-fit:cover;
+      background:transparent;
+      display:block;
+      margin:0 auto 18px;
+      box-shadow:0 12px 26px rgba(0,0,0,0.14);
     }
 
-    /* ✨ 金框 */
+    /* 金框：保留 */
     .card::before{
       content:"";
       position:absolute;
       inset:0;
-      border-radius: var(--radius);
+      border-radius:var(--radius);
       padding:1.6px;
-      background: linear-gradient(
-        135deg,
-        rgba(255,219,160,.95),
-        rgba(255,244,210,.7),
-        rgba(255,219,160,.95)
-      );
+      background: var(--gold-frame);
+
       -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
+      -webkit-mask-composite:xor;
+      mask-composite:exclude;
+
       pointer-events:none;
     }
 
+    /* 網站版的光暈（這個會害存圖變霧，所以存圖時會關掉） */
     .card::after{
       content:"";
       position:absolute;
@@ -124,11 +125,10 @@
         radial-gradient(420px 220px at 20% 10%, rgba(255,220,170,0.25), transparent 60%),
         radial-gradient(380px 200px at 80% 30%, rgba(255,235,195,0.20), transparent 62%);
       filter: blur(8px);
-      pointer-events:none;
       opacity:.9;
+      pointer-events:none;
     }
 
-    /* 💬 文字（網站版：舒服閱讀） */
     .msg{
       font-size:20px;
       line-height:1.85;
@@ -144,8 +144,9 @@
 
       color:#4f4d66;
       text-align:center;
+
       overflow-wrap:anywhere;
-      word-break: break-word;
+      word-break:break-word;
     }
 
     button{ font:inherit; cursor:pointer; border:none; }
@@ -171,13 +172,7 @@
       font-weight:900;
       letter-spacing:.02em;
 
-      background: linear-gradient(
-        135deg,
-        #6b5cff,
-        #9b7cff,
-        #f5c97b,
-        #f0b94d
-      );
+      background: linear-gradient(135deg,#6b5cff,#9b7cff,#f5c97b,#f0b94d);
       color:#2a1a00;
       box-shadow:0 10px 28px rgba(107,92,255,.22);
     }
@@ -191,77 +186,85 @@
       opacity:.9;
     }
 
-    @media (max-width:420px){
-      h1{ font-size:25px; }
-      .msg{ font-size:19px; }
-    }
-
-    /* ✅ 存圖：隱藏 */
     .hide-for-capture{ display:none!important; }
 
-    /* ===============================
-       📸 4×5 存圖專用畫布（關鍵）
-       - 1080×1350
-       - 背景跟網站一致
-       - 不用 blur（避免灰霧）
-       =============================== */
+    /* ======================
+       📸 4×5 存圖畫布
+       ====================== */
+
+    /* 讓畫布本體固定 1080×1350（存圖拍這個，不拍整個網頁） */
+    .capture-area{
+      width:100%;
+    }
+
     .capture-area.capture-mode{
-      width: 1080px;
-      height: 1350px;
-      padding: 120px 90px;
-      border-radius: 48px;
+      width:1080px;
+      height:1350px;
+      border-radius:48px;
+
+      /* 這裡做「可分享」比例：卡片要大 */
+      padding: 90px 72px;
 
       display:flex;
       align-items:center;
       justify-content:center;
 
-      background:
-        radial-gradient(900px 600px at 15% 8%,  rgba(255,210,230,0.55), transparent 60%),
-        radial-gradient(900px 600px at 85% 12%, rgba(255,238,190,0.55), transparent 62%),
-        radial-gradient(900px 650px at 20% 92%, rgba(200,230,255,0.50), transparent 64%),
-        radial-gradient(800px 600px at 88% 88%,  rgba(215,255,230,0.48), transparent 66%),
-        radial-gradient(900px 650px at 70% 35%, rgba(235,215,255,0.50), transparent 64%),
-        linear-gradient(180deg, #fffaf4 0%, #ffffff 100%);
+      background: var(--site-bg);
     }
 
-    /* 存圖時：卡片變乾淨，不霧；但金框保留 */
+    /* 存圖時：關掉所有 blur / 光暈 / 玻璃（避免霧） */
     .capture-area.capture-mode .card{
-      width: 100%;
-      max-width: 860px;
-      padding: 56px 54px 52px;
+      width:100%;
+      max-width: 980px;
 
-      background: rgba(255,255,255,0.92);
-      backdrop-filter:none;
-      -webkit-backdrop-filter:none;
+      padding: 84px 74px 72px;
+      border-radius: 44px;
 
-      box-shadow: 0 30px 70px rgba(0,0,0,0.18);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter:none !important;
+      -webkit-backdrop-filter:none !important;
+
+      box-shadow: 0 28px 70px rgba(0,0,0,0.18);
     }
 
-    /* 存圖時：logo 大一點、仍然圓弧無白框 */
+    .capture-area.capture-mode .card::after{
+      display:none !important;   /* ✅ 霧的主犯：直接關掉 */
+      filter:none !important;
+      opacity:0 !important;
+    }
+
+    /* 存圖時：logo 更大仍圓弧 */
     .capture-area.capture-mode .card-image{
-      width: 140px;
-      height: 140px;
-      border-radius: 34px;
-      margin: 0 auto 26px;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.16);
+      width: 170px;
+      height: 170px;
+      border-radius: 42px;
+      margin: 0 auto 34px;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.16);
     }
 
-    /* 存圖時：文字不會太大、也不容易醜斷行 */
+    /* 存圖時：文字區改成實色底（更清楚、不霧） */
     .capture-area.capture-mode .msg{
-      font-size: 24px;
-      line-height: 1.95;
-      padding: 28px 26px;
-      border-radius: 22px;
-      color: #3f3d55;
+      font-size: 30px;
+      line-height: 2.0;
+      padding: 34px 34px;
+      border-radius: 26px;
 
-      /* 讓長句更優雅：優先靠 CSS 控制，不硬拆 */
-      letter-spacing: .02em;
+      background: rgba(255,255,255,0.98); /* ✅ 改實色 */
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+
+      color:#3f3d55;
+      letter-spacing:.02em;
     }
 
     .capture-area.capture-mode .hint{
-      margin-top: 22px;
-      font-size: 14px;
-      opacity: .78;
+      margin-top: 26px;
+      font-size: 16px;
+      opacity: .75;
+    }
+
+    @media (max-width:420px){
+      h1{ font-size:25px; }
+      .msg{ font-size:19px; }
     }
   </style>
 </head>
@@ -270,22 +273,21 @@
   <main>
     <h1>今日指引</h1>
 
-    <!-- ✅ 4×5 存圖用畫布：存圖只拍這一層 -->
+    <!-- ✅ 存圖只拍這層 -->
     <section id="captureArea" class="capture-area">
-      <section class="card" id="card-result" aria-label="今日指引卡片">
+      <section class="card" id="card-result">
         <img src="icons/meowlogo512.png" alt="喵喵教主" class="card-image">
         <p id="msg" class="msg">載入中…</p>
 
         <button class="ghost capture-hide" type="button" onclick="pickOne()">再抽一張</button>
         <a class="primary capture-hide" href="https://meowmeowjiaojhu.github.io/links/" target="_blank" rel="noopener">來找喵喵</a>
-        <button id="btnSave" class="capture-hide share-btn" type="button">📸 存成分享圖（4×5）</button>
+        <button id="btnSave" class="capture-hide share-btn" type="button">📸 存成分享圖</button>
 
         <div class="hint"><span>感受共時的美好</span></div>
       </section>
     </section>
   </main>
 
-  <!-- html2canvas -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
@@ -296,7 +298,6 @@
       el.textContent = lines[i];
     }
 
-    // ✅ 永遠抓到最新 lines.js（破快取）
     (function loadLines(){
       const s = document.createElement("script");
       s.src = `./lines.js?v=${Date.now()}`;
@@ -307,7 +308,6 @@
       document.head.appendChild(s);
     })();
 
-    // ✅ 存圖（4×5）
     async function saveAsImage(){
       const area = document.getElementById("captureArea");
       const btn = document.getElementById("btnSave");
@@ -319,16 +319,13 @@
 
       btn.disabled = true;
 
-      // 進入存圖模式
       area.classList.add("capture-mode");
-      document.querySelectorAll(".capture-hide")
-        .forEach(el => el.classList.add("hide-for-capture"));
+      document.querySelectorAll(".capture-hide").forEach(el => el.classList.add("hide-for-capture"));
 
-      // 等重排（避免抓到半套樣式）
       requestAnimationFrame(() => {
         html2canvas(area, {
-          backgroundColor: null,  // 用 capture-area 自己的背景
-          scale: 2,               // 1080×1350 *2 = 2160×2700
+          backgroundColor: null,
+          scale: 2,
           useCORS: true
         }).then(canvas => {
           const link = document.createElement("a");
@@ -339,22 +336,18 @@
           console.error(e);
           alert("存圖失敗，可能是資源載入或瀏覽器限制。");
         }).finally(() => {
-          // 還原
           area.classList.remove("capture-mode");
-          document.querySelectorAll(".capture-hide")
-            .forEach(el => el.classList.remove("hide-for-capture"));
+          document.querySelectorAll(".capture-hide").forEach(el => el.classList.remove("hide-for-capture"));
           btn.disabled = false;
         });
       });
     }
 
-    // ✅ 綁定按鈕（避免 inline onclick 的雷）
     document.addEventListener("DOMContentLoaded", () => {
       const btn = document.getElementById("btnSave");
       if (btn) btn.addEventListener("click", saveAsImage);
     });
 
-    // ✅ service worker
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js").then((reg) => {
         reg.update();
