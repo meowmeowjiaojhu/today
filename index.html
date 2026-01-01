@@ -97,13 +97,13 @@
       overflow: hidden;
     }
 
-    /* ✅ 關鍵：內容層級在上面，避免被光暈「蓋霧」 */
+    /* ✅ 內容層級在上面 */
     .card > *{
       position: relative;
       z-index: 1;
     }
 
-    /* ✨ 金框（在最上面） */
+    /* ✨ 金框 */
     .card::before{
       content:"";
       position:absolute;
@@ -125,7 +125,7 @@
       z-index: 2;
     }
 
-    /* 🌟 光暈（放到內容後面，不再壓字） */
+    /* 🌟 光暈（網站看起來美用；存圖會關掉） */
     .card::after{
       content:"";
       position:absolute;
@@ -170,7 +170,6 @@
       color:#4f4d66;
       text-align:center;
 
-      /* ✅ 中文更好看：不要亂拆字 */
       word-break: keep-all;
       line-break: strict;
     }
@@ -212,15 +211,34 @@
     /* 📸 存圖時隱藏按鈕 */
     .hide-for-capture{ display:none!important; }
 
-    /* ✅ 存圖專用：字不爆、卡片更寬、不要斷得醜 */
+    /* ✅ 存圖：卡片更寬、字不爆 */
     .capture-area.capture-mode .card{
-      width: 720px;            /* 讓句子有空間 */
+      width: 720px;
       max-width: 720px;
       padding: 46px 44px 42px;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      background: rgba(255,255,255,0.72);
+
+      /* ✅ 去霧：存圖不要玻璃模糊 */
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+
+      /* ✅ 去霧：改成更乾淨的白色 */
+      background: #ffffff !important;
       box-shadow: 0 24px 60px rgba(0,0,0,.16);
+    }
+
+    /* ✅ 去霧：存圖模式關掉光暈 blur（最常造成灰膜） */
+    .capture-area.capture-mode .card::after{
+      display: none !important;
+    }
+
+    /* ✅ 去霧：文字區也改不透明 */
+    .capture-area.capture-mode .msg{
+      font-size: 21px;
+      line-height: 1.85;
+      padding: 24px 26px;
+      border-radius: 20px;
+      color:#3f3d55;
+      background: #ffffff !important;
     }
 
     .capture-area.capture-mode .card-image{
@@ -228,15 +246,6 @@
       height: 132px;
       border-radius: 30px;
       margin-bottom: 22px;
-    }
-
-    .capture-area.capture-mode .msg{
-      font-size: 22px;         /* ✅ 由大改成剛好 */
-      line-height: 1.85;
-      padding: 26px 26px;
-      border-radius: 20px;
-      color:#3f3d55;
-      background: rgba(255,255,255,0.90);
     }
 
     .capture-area.capture-mode .hint{
@@ -256,7 +265,6 @@
   <main>
     <h1>今日指引</h1>
 
-    <!-- ✅ 新增：存圖容器 -->
     <div id="captureArea" class="capture-area">
       <section class="card" id="card-result">
         <img src="icons/meowlogo512.png" alt="喵喵教主" class="card-image">
@@ -299,16 +307,35 @@
       }
 
       btn.disabled = true;
+
+      // ✅ 記住原狀（拍完還原）
+      const prev = {
+        width: area.style.width,
+        height: area.style.height,
+        padding: area.style.padding,
+        borderRadius: area.style.borderRadius,
+        overflow: area.style.overflow
+      };
+
+      // ✅ 強制固定輸出尺寸：IG 4:5（1080×1350）
+      area.style.width = "1080px";
+      area.style.height = "1350px";
+      area.style.padding = "90px";
+      area.style.borderRadius = "44px";
+      area.style.overflow = "hidden";
+
       area.classList.add("capture-mode");
       document.querySelectorAll(".capture-hide").forEach(el => el.classList.add("hide-for-capture"));
 
-      // 等一拍讓樣式完整套上（避免抓到半套）
+      // 等兩拍，讓樣式穩定
       await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
       html2canvas(area, {
-        backgroundColor: null,  // ✅ 讓 captureArea 的漂亮背景被保留
+        backgroundColor: "#fffaf4",
         scale: 2,
-        useCORS: true
+        useCORS: true,
+        scrollX: 0,
+        scrollY: -window.scrollY
       }).then(canvas => {
         const link = document.createElement("a");
         link.download = "my-card.png";
@@ -319,6 +346,14 @@
       }).finally(() => {
         document.querySelectorAll(".capture-hide").forEach(el => el.classList.remove("hide-for-capture"));
         area.classList.remove("capture-mode");
+
+        // 還原
+        area.style.width = prev.width;
+        area.style.height = prev.height;
+        area.style.padding = prev.padding;
+        area.style.borderRadius = prev.borderRadius;
+        area.style.overflow = prev.overflow;
+
         btn.disabled = false;
       });
     }
